@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    // 페이지를 2초마다 새로고침하는 함수
+    setInterval(function() {
+        location.reload();  // 현재 페이지를 새로고침
+    }, 2000); // 2000밀리초 = 2초
+</script>
+
+    <div class="container">
+        <h1>주문 관리</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>주문내역</th>
+                    <th>주문방식</th>
+                    <th>최종금액</th>
+                    <th>주문링크</th>
+                    <th>주문시간</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>
+                        {% for item in order.items %}
+                            <div>
+                                <strong>{{ item.name }}</strong><br>
+                                수량: {{ item.number }}개<br>
+                            </div>
+                        {% endfor %}
+                    </td>
+                    <td>{{ order.order_type }}</td> <!-- 주문 방식 표시 -->
+                    <td>{{ order.total_amount }}원</td> <!-- 최종 금액 표시 -->
+                    <td><a href="{{ order.current_url }}" target="_blank">{{ order.current_url }}</a></td>
+                    <td>{{ order.created_at }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">No orders found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
