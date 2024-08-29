@@ -1,5 +1,5 @@
 var IMP = window.IMP;
-IMP.init("imp54383001"); // 고객사 식별코드
+IMP.init(""); // 고객사 식별코드
 
 var today = new Date();
 var hours = today.getHours(); // 시
