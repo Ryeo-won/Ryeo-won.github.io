@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import Menu, Category, Order
 
-# 이미 등록된 모델을 확인하고 등록
 try:
     admin.site.unregister(Menu)
 except admin.sites.NotRegistered:
@@ -24,7 +23,7 @@ class MenuAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'menu_image', 'display_categories')
     list_filter = ('categories',)
     search_fields = ('name',)
-    filter_horizontal = ('categories',)  # ManyToManyField를 위한 필터 위젯 추가
+    filter_horizontal = ('categories',)
 
     def display_categories(self, obj):
         return ", ".join([category.category_name for category in obj.categories.all()])

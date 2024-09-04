@@ -55,11 +55,8 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-# 모든 도메인에서의 CORS 허용 (개발 환경에서만 사용할 것)
 CORS_ALLOW_ALL_ORIGINS = True
 
-# CSRF 설정 (필요한 경우)
-# CSRF_TRUSTED_ORIGINS = ['http://localhost:8000']
 
 ROOT_URLCONF = 'EmbeddedProj.urls'
 
@@ -90,7 +87,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'skrr',
         'USER': 'root',
-        'PASSWORD': 'ryry9978',
+        'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }

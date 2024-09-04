@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'lgcon/CSS/Home.css' %}?after ">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.7.js"></script>
     <meta name="csrf-token" content="{{ csrf_token }}">
-    <title>진동벨 키오스크 UI___</title>
+    <title>KiosPager</title>
 </head>
 
 <body>
@@ -38,8 +38,6 @@
                         <div id="mega_top_bar_home" onclick="herf_home()"></div>
                         <div id="mega_top_bar_name">상명대학교 키오스크</div>
                         <div id="mega_top_bar_lang">LANG</div>
-                        <!-- <div>{{menu}}</div> -->
-                        
                     </div>
 
                     <div id="mega_menu_bar">
@@ -105,7 +103,6 @@
                     <div id="추천_디저트">
 
                     </div>
-
 
                     <div id="커피_HOT">
                         {% for i in menu %}
@@ -313,10 +310,9 @@
                     <div id="second_page"></div>
                 </div>
 
-
                 <div id="pay">
                     <div id="order_lsit">
-                        <!-- JavaScript를 통해 아이템 리스트가 여기에 추가됩니다. -->
+              
                     </div>
                 
                     <div id="order_list_right">
@@ -332,14 +328,13 @@
                 </div>
                 
                 <script>
-                    const orderListDiv = document.getElementById('order_lsit');  // order_list -> order_lsit으로 수정
+                    const orderListDiv = document.getElementById('order_lsit');  
                 
                     for (let i = 0; i < 20; i++) {
                         const orderDiv = document.createElement('div');
                         orderDiv.id = `order_${i + 1}`;
                         orderDiv.className = 'cart';
                 
-                        // 내부 div 생성
                         orderDiv.innerHTML = `
                             <div id="delete_${i + 1}" onclick="deleteItem(${i})">X</div>
                             <div id="range_${i + 1}"></div>
@@ -349,7 +344,6 @@
                             <div id="item_price_${i + 1}"></div>
                         `;
                 
-                        // 부모 요소에 추가
                         orderListDiv.appendChild(orderDiv);
                     }
                 </script>
@@ -417,7 +411,7 @@
 
                 <div id="포인트적립"> </div>
 
-<!--건드리는중-->
+
                 <div id="w_간편결제">
                     <div id="w_간편결제_top">
                         <div>간편 결제</div>
@@ -433,7 +427,7 @@
                         
                     </div>
                     <div id="w_list">
-                        <div id="pay_amount">  <!-- 배경색 줄까말까-->
+                        <div id="pay_amount">  
                             <div>총 결제금액</div>
                             <div id="w_간편결제_total_price"></div>
                         </div>
@@ -445,7 +439,6 @@
                         <div id="취소" onclick="close_w_간편결제()">취소</div>
                     </div>
                 </div> 
-<!--건드리는중-->
 
 
                 <div id="w_카드결제">

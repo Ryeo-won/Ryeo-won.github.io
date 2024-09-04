@@ -1,12 +1,3 @@
-/*메가커피 - 스크린 크기와 동일한 버튼을 누르면 
-1. 광고 포스터 이미지 사라짐
-2. 포스터와 같은 크기의 투명한 버튼 사라짐
-3. 오더 창 나타남
-4. 4x3의 메뉴창 뜸
-5. 페이지 표시 버튼 뜸
-6. 결제 관련 페이지 뜸
-7. 담은 항복 가려짐
-*/
 function start_btn() {
     document.getElementById("mega_start_img").style.display = 'none';
     document.getElementById("mega_start_btn").style.display = 'none';
@@ -28,9 +19,6 @@ function hide_order_list() {
 var menu_list = ["추천_음료"];
 function open_menu_table(id) {
     all_menu_none();
-    // document.getElementById(menu_list[0]).style.display = 'none';
-    // menu_list.pop();
-    // menu_list.push(id);
     document.getElementById(id).style.display = 'block';
 }
 
@@ -111,21 +99,16 @@ function Item(name, price) {
     this.price = parseInt(price);
 }
 
-// 주문 목록 초기화
+
 var order_list = [];
 
-// 메뉴 항목 선택 함수
 function option(id, type, price) {
-    // 동일한 id를 가진 모든 요소를 선택
     var drinks = document.querySelectorAll(`[id='${id}']`);
-
-    // 선택된 모든 요소의 테두리 스타일을 변경
     drinks.forEach(drink => {
         drink.style.borderStyle = 'solid';
         drink.style.borderColor = 'red';
     });
 
-    // 주문 항목 처리
     var order = new Item(id, price);
     var existingOrder = order_list.find(item => item.name === id);
     if (existingOrder) {
@@ -135,20 +118,16 @@ function option(id, type, price) {
         order_list.push(order);
     }
     
-    // 주문 목록 갱신
     open_order_list(order_list);
 }
 
 
-//x키 삭제 함수
 function deleteItem(index) {
     if (index >= 0 && index < order_list.length) {
         var itemName = order_list[index].name;
-
-        // 주문 목록에서 항목 삭제
         order_list.splice(index, 1);
 
-        // 동일한 이름을 가진 모든 요소의 테두리 초기화
+
         var remainingOrder = order_list.find(item => item.name === itemName);
         if (!remainingOrder) {
             var drinks = document.querySelectorAll(`[id='${itemName}']`);
@@ -163,13 +142,11 @@ function deleteItem(index) {
         console.error("Invalid index: ", index);
     }
 
-    // 주문 목록이 비었는지 확인하고 초기화
     if (order_list.length === 0) {
         clear_order_list();
     }
 }
 
-// 주문 항목 테두리 초기화 함수
 function resetItemBorder(id) {
     var drink = document.getElementById(id);
     if (소주) {
@@ -177,7 +154,7 @@ function resetItemBorder(id) {
     }
 }
 
-// +키를 눌렀을 때 1개 추가
+
 function increaseQuantity(index) {
     if (order_list[index]) {
         order_list[index].number += 1;
@@ -196,7 +173,6 @@ function decreaseQuantity(index) {
         } else {
             order_list.splice(index, 1);
 
-            // 동일한 이름을 가진 모든 요소의 테두리 초기화
             var remainingOrder = order_list.find(item => item.name === itemName);
             if (!remainingOrder) {
                 var drinks = document.querySelectorAll(`[id='${itemName}']`);
@@ -212,16 +188,12 @@ function decreaseQuantity(index) {
         console.error("Invalid index: ", index);
     }
 
-    // 주문 목록이 비었는지 확인하고 초기화
     if (order_list.length === 0) {
         clear_order_list();
     }
 }
 
 
-
-
-/*order_list에 표시하기*/
 var total_list = [0, 0];
 
 function open_order_list(order_list) {
@@ -255,14 +227,12 @@ function open_order_list(order_list) {
 
     write_order_list_window_pay(order_list);
 
-    // 주문 목록이 비었는지 확인하고 초기화
     if (order_list.length === 0) {
         clear_order_list();
     }
 }
 
 function clear_order_list() {
-    // 주문 목록 초기화
     for (var i = 1; i <= 20; i++) {
         var order_id = "order_" + i;
         document.getElementById(order_id).style.display = 'none';
@@ -277,11 +247,11 @@ function clear_order_list() {
     total_list[1] = 0;
 }
 
-var takeoutOption = ""; // 선택된 옵션을 저장할 변수
+var takeoutOption = "";
 
 function chooseOption(option) {
     takeoutOption = option;
-    change_window_btn(); // 선택 후 버튼 변경
+    change_window_btn(); 
 }
 
 
@@ -314,7 +284,7 @@ function close_window_pay () {
 }
 
 function write_order_list_window_pay(order_list) {
-    var max_items = 20; // 결제 창에서 최대 n개의 항목을 표시하도록 설정
+    var max_items = 20;
 
     for (var i = 0; i < order_list.length && i < max_items; i++) {
         var window_id = "window_" + (i + 1);
@@ -323,7 +293,6 @@ function write_order_list_window_pay(order_list) {
         document.getElementById("w_number_" + (i + 1)).innerText = order_list[i].number + "개 " + (order_list[i].price * order_list[i].number).toFixed(0) + "원";
     }
 
-    // 표시되지 않는 추가 항목들은 숨깁니다.
     for (var j = order_list.length + 1; j <= max_items; j++) {
         var window_id = "window_" + j;
         document.getElementById(window_id).style.display = 'none';
@@ -375,7 +344,6 @@ function close_w_간편결제() {
     back_2_window_btn();
 }
 
-// 건드리는중
 
 function open_w_카드결제() {
     document.getElementById("w_카드결제").style.display = 'block';

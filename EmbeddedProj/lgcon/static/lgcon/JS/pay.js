@@ -2,9 +2,9 @@ var IMP = window.IMP;
 IMP.init(""); // 고객사 식별코드
 
 var today = new Date();
-var hours = today.getHours(); // 시
-var minutes = today.getMinutes(); // 분
-var seconds = today.getSeconds(); // 초
+var hours = today.getHours(); 
+var minutes = today.getMinutes(); 
+var seconds = today.getSeconds(); 
 var milliseconds = today.getMilliseconds();
 var makeMerchantUid = hours + minutes + seconds + milliseconds;
 
@@ -13,18 +13,17 @@ var customer_id = 'CUST-' + Date.now(); // 실제 고객 ID로 대체 필요
 var customer_uid = 'UID-' + Math.random().toString(36).substr(2, 16); // 실제 고객 UID로 대체 필요
 
 function getCSRFToken() {
-    // CSRF 토큰을 쿠키에서 읽어옵니다
     const token = document.cookie.split('; ').find(row => row.startsWith('csrftoken=')).split('=')[1];
     return token;
 }
 
 function kakaoPay() {
     IMP.request_pay({
-        pg: 'kakaopay', // PG사 코드표에서 선택
-        pay_method: 'card', // 결제 방식
-        merchant_uid: "IMP" + makeMerchantUid, // 결제 고유 번호
-        name: '상명대학교 카페', // 제품명
-        amount: total_list[1], // 가격
+        pg: 'kakaopay',
+        pay_method: 'card',
+        merchant_uid: "IMP" + makeMerchantUid,
+        name: '상명대학교 카페',
+        amount: total_list[1],
         buyer_email: 'Iamport@chai.finance',
         buyer_name: '상명대학교 스마트정보통신공학과',
         buyer_tel: '010-1234-5678',
@@ -32,20 +31,20 @@ function kakaoPay() {
         buyer_postcode: '123-456',
         customer_uid: customer_uid, // 고객 UID
         customer_id: customer_id  // 고객 ID
-    }, function (rsp) { // callback
+    }, function (rsp) { 
         if (rsp.success) {
             alert('결제가 성공적으로 완료되었습니다.');
             fetch("http://127.0.0.1:8000/orders/api/order-data/", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': getCSRFToken() // CSRF 토큰 추가
+                    'X-CSRFToken': getCSRFToken()
                 },
                 body: JSON.stringify({
-                    order_list: order_list, // 올바른 형식으로 설정
-                    current_url: window.location.href, // 필드 이름이 맞는지 확인
-                    total_price: total_list[1], // 최종 금액 추가
-                    takeout_option: takeoutOption, // 먹고가기 or 가져가기 옵션 추가
+                    order_list: order_list, 
+                    current_url: window.location.href,
+                    total_price: total_list[1],
+                    takeout_option: takeoutOption,
                 }),
             })
             .then(response => response.json())
@@ -66,32 +65,32 @@ function kakaoPay() {
 
 function tossPay() {
     IMP.request_pay({
-        pg: 'tosspay', // PG사 코드표에서 선택
-        pay_method: 'card', // 결제 방식
-        merchant_uid: "IMP" + makeMerchantUid, // 결제 고유 번호
-        name: '상명대학교 카페', // 제품명
-        amount: total_list[1], // 가격s
+        pg: 'tosspay', 
+        pay_method: 'card',
+        merchant_uid: "IMP" + makeMerchantUid,
+        name: '상명대학교 카페',
+        amount: total_list[1], 
         buyer_email: 'Iamport@chai.finance',
         buyer_name: '상명대학교 스마트정보통신공학과',
         buyer_tel: '010-1234-5678',
         buyer_addr: '충청남도 천안시 동남구 상명대길 31',
         buyer_postcode: '123-456',
-        customer_uid: customer_uid, // 고객 UID
-        customer_id: customer_id  // 고객 ID
-    }, function (rsp) { // callback
+        customer_uid: customer_uid,
+        customer_id: customer_id  
+    }, function (rsp) { 
         if (rsp.success) {
             alert('결제가 성공적으로 완료되었습니다.');
             fetch("http://127.0.0.1:8000/orders/api/order-data/", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': getCSRFToken() // CSRF 토큰 추가
+                    'X-CSRFToken': getCSRFToken()
                 },
                 body: JSON.stringify({
-                    order_list: order_list, // 올바른 형식으로 설정
-                    current_url: window.location.href, // 필드 이름이 맞는지 확인
-                    total_price: total_list[1], // 최종 금액 추가
-                    takeout_option: takeoutOption, // 먹고가기 or 가져가기 옵션 추가
+                    order_list: order_list, 
+                    current_url: window.location.href,
+                    total_price: total_list[1],
+                    takeout_option: takeoutOption,
                 }),
             })
             .then(response => response.json())
@@ -111,32 +110,32 @@ function tossPay() {
 
 function payco() {
     IMP.request_pay({
-        pg: 'payco', // PG사 코드표에서 선택
-        pay_method: 'payco', // 결제 방식
-        merchant_uid: "IMP" + makeMerchantUid, // 결제 고유 번호
-        name: '상명대학교 카페', // 제품명
-        amount: total_list[1], // 가격s
+        pg: 'payco', 
+        pay_method: 'payco',
+        merchant_uid: "IMP" + makeMerchantUid,
+        name: '상명대학교 카페',
+        amount: total_list[1],
         buyer_email: 'Iamport@chai.finance',
         buyer_name: '상명대학교 스마트정보통신공학과',
         buyer_tel: '010-1234-5678',
         buyer_addr: '충청남도 천안시 동남구 상명대길 31',
         buyer_postcode: '123-456',
-        customer_uid: customer_uid, // 고객 UID
-        customer_id: customer_id  // 고객 ID
-    }, function (rsp) { // callback
+        customer_uid: customer_uid,
+        customer_id: customer_id
+    }, function (rsp) { 
         if (rsp.success) {
             alert('결제가 성공적으로 완료되었습니다.');
             fetch("http://127.0.0.1:8000/orders/api/order-data/", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': getCSRFToken() // CSRF 토큰 추가
+                    'X-CSRFToken': getCSRFToken()
                 },
                 body: JSON.stringify({
-                    order_list: order_list, // 올바른 형식으로 설정
-                    current_url: window.location.href, // 필드 이름이 맞는지 확인
-                    total_price: total_list[1], // 최종 금액 추가
-                    takeout_option: takeoutOption, // 먹고가기 or 가져가기 옵션 추가
+                    order_list: order_list,
+                    current_url: window.location.href,
+                    total_price: total_list[1],
+                    takeout_option: takeoutOption,
                 }),
             })
             .then(response => response.json())
@@ -161,13 +160,13 @@ function card_success(){
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': getCSRFToken() // CSRF 토큰 추가
+            'X-CSRFToken': getCSRFToken()
         },
         body: JSON.stringify({
-            order_list: order_list, // 올바른 형식으로 설정
-            current_url: window.location.href, // 필드 이름이 맞는지 확인
-            total_price: total_list[1], // 최종 금액 추가
-            takeout_option: takeoutOption, // 먹고가기 or 가져가기 옵션 추가
+            order_list: order_list,
+            current_url: window.location.href,
+            total_price: total_list[1],
+            takeout_option: takeoutOption,
         }),
     })
     history.go(0);

@@ -29,10 +29,9 @@
 <body>
 
 <script>
-    // 페이지를 2초마다 새로고침하는 함수
     setInterval(function() {
-        location.reload();  // 현재 페이지를 새로고침
-    }, 2000); // 2000밀리초 = 2초
+        location.reload();  
+    }, 2000);
 </script>
 
     <div class="container">
@@ -60,8 +59,8 @@
                             </div>
                         {% endfor %}
                     </td>
-                    <td>{{ order.order_type }}</td> <!-- 주문 방식 표시 -->
-                    <td>{{ order.total_amount }}원</td> <!-- 최종 금액 표시 -->
+                    <td>{{ order.order_type }}</td> 
+                    <td>{{ order.total_amount }}원</td> 
                     <td><a href="{{ order.current_url }}" target="_blank">{{ order.current_url }}</a></td>
                     <td>{{ order.created_at }}</td>
                 </tr>
